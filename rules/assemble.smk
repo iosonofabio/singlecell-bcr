@@ -1,15 +1,14 @@
 import os
 
-include: "common.smk"
 include: "get_container.smk"
 
 
 rule transfer_contigs:
     """ Take the assemblies from 10X, made from scRNA-seq reads """
     input:
-        get_10X_contigs_using_wildcards
+        '{base}/vdj/{sample}/outs/filtered_contig.fasta'
     output:
-        '{base}/{sample}/basic/transcripts.fasta'
+        '{base}/vdj/{sample}/outs/BCR_transcripts.fasta'
     threads: 1
     params:
         name="xfer_contifs",
@@ -32,9 +31,9 @@ rule blast_constant_region:
         * Tuned for high quality matches (megablast + wordsize)
     """
     input:
-        rules.basic.output
+        rules.transfer_contigs.output
     output:
-        '{base}/{sample}/basic/constant_region_blast.tsv'
+        '{base}/vdj/{sample}/outs/constant_region_blast.tsv'
     threads: 1
     params:
         name="blast_iso",
@@ -60,10 +59,10 @@ rule igblast_changeo:
     """
     input:
         img=rules.get_immcantation_image.output,
-        assembly=rules.basic.output
+        assembly=rules.transfer_contigs.output
     output:
-        '{base}/{sample}/basic/transcripts.fmt7',
-        '{base}/{sample}/basic/igblast_db-pass.tab'
+        '{base}/vdj/{sample}/outs/transcripts.fmt7',
+        '{base}/vdj/{sample}/outs/igblast_db-pass.tab'
     threads: 1
     params:
         name='igblast',
@@ -103,7 +102,7 @@ rule merge_changeo_constant:
         changeo=rules.igblast_changeo.output[1],
         constant=rules.blast_constant_region.output
     output:
-        '{base}/{sample}/basic/igblast_db-pass_const-merge.tsv'
+        '{base}/vdj/{sample}/outs/igblast_db-pass_const-merge.tsv'
     threads: 1
     params:
         name="merge_changeo_constant",
@@ -121,7 +120,7 @@ rule merge_changeo_constant:
 rule combine_assemblies:
     """ Join assemblies from all samples into a single table """
     input:
-        expand('{base}/{sample}/basic/igblast_db-pass_const-merge.tsv',
+        expand('{base}/vdj/{sample}/outs/igblast_db-pass_const-merge.tsv',
                 zip,
                 base=samplesheet.base.values.tolist(),
                 sample=samplesheet.samplename.values.tolist())

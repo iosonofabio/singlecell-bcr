@@ -1,3 +1,4 @@
 base	samplename
-.test/seq_run_1	PA16P1B11
-.test/seq_run_2	PA11P1B08
+/oak/stanford/groups/quake/fzanini/sequencing_data/zika_cd137	anti-CD137_7dpi-VDJ
+/oak/stanford/groups/quake/fzanini/sequencing_data/zika_cd137	isotype_control-VDJ
+/oak/stanford/groups/quake/fzanini/sequencing_data/zika_cd137	M_GV-Na_ve-Na_ve-VDJ
