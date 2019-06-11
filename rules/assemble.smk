@@ -4,28 +4,25 @@ include: "common.smk"
 include: "get_container.smk"
 
 
-rule basic:
-    """ Assemble heavy and light chains from scRNA-seq reads """
+rule transfer_contigs:
+    """ Take the assemblies from 10X, made from scRNA-seq reads """
     input:
-        get_r1_r2_fqgz_using_wildcards
+        get_10X_contigs_using_wildcards
     output:
         '{base}/{sample}/basic/transcripts.fasta'
-    threads: 2
+    threads: 1
     params:
-        name="basic",
+        name="xfer_contifs",
         partition=config['partition'],
-        scratch=config['scratch'] if 'scratch' in config and config['scratch'] else '$PWD'
+        scratch=config['scratch'] if 'scratch' in config and config['scratch'] else '$PWD',
+        scripts_dir=os.path.join(workflow.basedir, 'scripts')
     resources:
-        mem_mb=lambda wildcards, attempt: 15000*attempt
+        mem_mb=5000
     conda:
         os.path.join(workflow.basedir, 'envs/miniconda.yaml')
-    shell:  "outdir=$(dirname {output}) && "
-            "cd $(dirname $outdir) && "
-            "BASIC.py -b $(which bowtie2) "
-            "-g {config[species]} -PE_1 $(basename {input[0]}) "
-            "-PE_2 $(basename {input[1]}) "
-            "-p {threads} -n transcripts -i {config[receptor]} "
-            "-t {params.scratch} -a -o basic"
+    shell:
+        "python {params.scripts_dir}/xfer_10X_contigs.py "
+        "{input} {output}"
 
 
 rule blast_constant_region:
