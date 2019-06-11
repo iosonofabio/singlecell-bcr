@@ -7,17 +7,17 @@ samplesheet: samplesheet.tsv
 # the assembly pipeline uses the immcantation framework for IgBLAST
 # gene segment calling and results parsing
 # options: 'docker' or 'singularity'
-container_type: docker
+container_type: singularity
 
 # Singularity only: if commands are required prior
 # to singularity execution, uncomment and edit the line below
-#singularity_pre_cmd: "module load system && module load singularity && "
+singularity_pre_cmd: "module load system && module load singularity && "
 
 # human or mouse
-species: human
+species: mouse
 
 # partition (for cluster computing)
-partition: "quake,owners"
+partition: "quake,normal,owners"
 
 # ----------------------------------------
 # Assembly
@@ -35,7 +35,7 @@ receptor: BCR
 read_length: 100
 
 # whether or not to include ERCCs in the genome fasta and gtf 
-include_ERCCs: True
+include_ERCCs: False
 
 # STAR alignment: fasta and gtf files
 # (these should not need to be changed)
