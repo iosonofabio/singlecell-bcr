@@ -1,6 +1,6 @@
 $schema: "http://json-schema.org/draft-06/schema#"
 
-description: snakemake config file for scRNA-seq assembly and alignment
+description: snakemake config file for BCR assembly and classification based on 10X genomics
 
 type: object
 
@@ -17,7 +17,6 @@ properties:
 
   species:
     enum:
-      - human
       - mouse
 
   partition:

@@ -18,8 +18,8 @@ localrules: all
 rule all:
     input:
         'combined_assemblies.tsv',
-        'combined_counts.tsv'
+        # FIXME: add something to merge counts and BCRs?
+        #'combined_counts.tsv'
 
 
-include: 'rules/align.smk'
 include: 'rules/assemble.smk'
