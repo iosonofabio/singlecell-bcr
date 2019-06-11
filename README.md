@@ -1,9 +1,12 @@
-# singlecell-ige
+# singlecell-bcr
 
-[![Build Status](https://travis-ci.org/dcroote/singlecell-ige.svg?branch=master)](https://travis-ci.org/dcroote/singlecell-ige)
+[![Build Status](https://travis-ci.org/iosonofabio/singlecell-bcr.svg?branch=master)](https://travis-ci.org/iosonofabio/singlecell-bcr)
 ![Python 3.5](https://img.shields.io/badge/python-3.5-blue.svg)
 
-Alignment and assembly workflows associated with Croote et al. (2018). These workflows were developed to analyze single human B cells isolated from the peripheral blood of food-allergic individuals and assume single-cell RNA-sequencing were data generated using the Smart-seq2 chemistry (10X and drop-seq data will not assemble).
+Classify B cell receptor sequences from 10X genomics assemblies. This repo starts from the code by Derek Croote in his ![singlecell-ige](https://github.com/dcroote/singlecell-ige) pipeline.
+
+Temporarily from Derek's pipeline below:
+
 
 ![DAG](dag.png)
 
