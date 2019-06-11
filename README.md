@@ -5,14 +5,11 @@
 
 Classify B cell receptor sequences from 10X genomics assemblies. This repo starts from the code by Derek Croote in his ![singlecell-ige](https://github.com/dcroote/singlecell-ige) pipeline.
 
-Temporarily from Derek's pipeline below:
-
-
 ![DAG](dag.png)
 
 ## About
 
-This repository contains two [snakemake](https://snakemake.readthedocs.io/en/stable/)-based [workflows](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html) for processing scRNA-seq data. The alignment (mapping) workflow uses [STAR](https://github.com/alexdobin/STAR) and [htseq](https://htseq.readthedocs.io) whereas the antibody heavy / light chain assembly workflow uses [BASIC](https://github.com/akds/BASIC) followed by the [immcantation](https://immcantation.readthedocs.io) framework.
+This repository contains a [snakemake](https://snakemake.readthedocs.io/en/stable/)-based [workflow](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html) for processing scRNA-seq data from the 10X genomics VDJ kit. The antibody heavy / light chain assembly workflow uses the [immcantation](https://immcantation.readthedocs.io) framework.
 
 ## Configuration
 
@@ -49,6 +46,12 @@ Once configured, source your `conda` environment and launch the workflows with t
 
 ```bash
 snakemake --use-conda 
+```
+
+For dry run, use:
+
+```bash
+snakemake --use-conda -n
 ```
 
 For cluster computing (e.g. on a SLURM cluster), the following can serve as a template: 
