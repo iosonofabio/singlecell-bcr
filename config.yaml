@@ -13,7 +13,7 @@ container_type: singularity
 # to singularity execution, uncomment and edit the line below
 singularity_pre_cmd: "module load system && module load singularity && "
 
-# human or mouse
+# mouse
 species: mouse
 
 # partition (for cluster computing)
